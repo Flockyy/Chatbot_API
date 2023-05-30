@@ -2,16 +2,17 @@ from typing import Any, List
 import json
 import torch
 import random
+
 from ai.model import NeuralNet
 from ai.nltk_utils import bag_of_words, tokenize, correct
-
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-import crud, schemas
+from src import crud
+from src import schemas
 
-from api import deps
+from src.api import deps
 
 router = APIRouter()
 

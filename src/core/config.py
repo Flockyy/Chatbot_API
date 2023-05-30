@@ -1,4 +1,4 @@
-from pydantic import AnyHttpUrl, BaseSettings, EmailStr, validator
+from pydantic import AnyHttpUrl, BaseSettings, validator
 from typing import List, Optional, Union
 import secrets
 
@@ -23,7 +23,6 @@ class Settings(BaseSettings):
         raise ValueError(v)
 
     SQLALCHEMY_DATABASE_URI: Optional[str] = "sqlite:///sql.db"
-    FIRST_SUPERUSER: EmailStr = "admin@chatbotapi.com"
 
     class Config:
         case_sensitive = True 

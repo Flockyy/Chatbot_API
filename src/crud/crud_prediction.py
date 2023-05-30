@@ -2,9 +2,9 @@ from typing import Any, Dict, Optional, Union, List
 
 from sqlalchemy.orm import Session
 
-from crud.base import CRUDBase
-from models.prediction import Prediction
-from schemas.prediction import PredictionCreate, PredictionUpdate
+from src.crud.base import CRUDBase
+from src.models.prediction import Prediction
+from src.schemas.prediction import PredictionCreate, PredictionUpdate
 
 
 class CRUDPrediction(CRUDBase[Prediction, PredictionCreate, PredictionUpdate]):
