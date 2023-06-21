@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 from src.db.session import SessionLocal
 from main import app
 
+
 @pytest.fixture(scope="session")
 def db() -> Generator:
     yield SessionLocal()

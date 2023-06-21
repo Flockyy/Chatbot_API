@@ -1,1 +1,6 @@
-from .prediction import Prediction, PredictionCreate, PredictionInDBBase, PredictionUpdate
+from .prediction import (
+    Prediction,
+    PredictionCreate,
+    PredictionInDBBase,
+    PredictionUpdate,
+)

@@ -16,6 +16,7 @@ from src.api import deps
 
 router = APIRouter()
 
+
 @router.get("/", response_model=List[schemas.Prediction])
 def read_predictions(
     db: Session = Depends(deps.get_db),
@@ -39,10 +40,12 @@ def create_prediction(
     Create new prediction and answer user.
     """
     # GPU if available else CPU
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Will be deprecated
-    with open('/home/CDG-NORD/florian-a/python-srv/src/pytorch_nn/intents.json', 'r') as json_data:
+    with open(
+        "/home/CDG-NORD/florian-a/python-srv/src/pytorch_nn/intents.json", "r"
+    ) as json_data:
         intents = json.load(json_data)
 
     # Model import
@@ -53,8 +56,8 @@ def create_prediction(
     input_size = data["input_size"]
     hidden_size = data["hidden_size"]
     output_size = data["output_size"]
-    all_words = data['all_words']
-    tags = data['tags']
+    all_words = data["all_words"]
+    tags = data["tags"]
     model_state = data["model_state"]
 
     # Model recreation
@@ -81,11 +84,11 @@ def create_prediction(
     # END prediction
 
     if prob.item() > 0.75:
-        for intent in intents['intents']:
+        for intent in intents["intents"]:
             if tag == intent["tag"]:
                 # Recreate answer with page url or document link
 
-                result = random.choice(intent['responses'])
+                result = random.choice(intent["responses"])
     else:
         result = "Je ne comprend pas..."
     print(result)
