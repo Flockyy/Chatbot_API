@@ -1,15 +1,17 @@
 # nltk_utils.py
 import numpy as np
 import nltk
+
 # nltk.download('punkt')
 from nltk.stem.porter import PorterStemmer
 
 from spellchecker import SpellChecker
 
 stemmer = PorterStemmer()
-spell = SpellChecker(language='fr')
+spell = SpellChecker(language="fr")
 
-#TODO Modify with data preparation from this tutorial https://pytorch.org/tutorials/beginner/chatbot_tutorial.html
+# TODO Modify with data preparation from this tutorial https://pytorch.org/tutorials/beginner/chatbot_tutorial.html
+
 
 def tokenize(sentence):
     """
@@ -31,16 +33,18 @@ def stem(word):
     print(word)
     return stemmer.stem(word.lower())
 
+
 def correct(sentence):
     """
     Autocorrect words
     "bnojour -> "bonjour"
     """
-    
+
     # for i in range(0, len(sentence)):
     #     sentence[i] = spell.correction(sentence[i])
     # print(sentence)
     return sentence
+
 
 def bag_of_words(tokenized_sentence, words):
     """
@@ -58,7 +62,7 @@ def bag_of_words(tokenized_sentence, words):
     # initialize bag with 0 for each word
     bag = np.zeros(len(words), dtype=np.float32)
     for idx, w in enumerate(words):
-        if w in sentence_words: 
+        if w in sentence_words:
             bag[idx] = 1
 
     return bag

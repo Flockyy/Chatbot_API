@@ -9,10 +9,10 @@ from model import NeuralNet
 
 from nltk_utils import bag_of_words, tokenize, stem
 
-#TODO Same as nltk utils todo
-#TODO Connect to db instead of a json file
+# TODO Same as nltk utils todo
+# TODO Connect to db instead of a json file
 
-with open('/home/CDG-NORD/florian-a/python-srv/src/pytorch_nn/intents.json', 'r') as f:
+with open("/home/CDG-NORD/florian-a/python-srv/src/pytorch_nn/intents.json", "r") as f:
     intents = json.load(f)
 
 all_words = []
@@ -20,11 +20,11 @@ tags = []
 xy = []
 
 # Loop through each sentence in our intents patterns
-for intent in intents['intents']:
-    tag = intent['tag']
+for intent in intents["intents"]:
+    tag = intent["tag"]
     # add to tag list
     tags.append(tag)
-    for pattern in intent['patterns']:
+    for pattern in intent["patterns"]:
         # tokenize each word in the sentence
         w = tokenize(pattern)
         # add to our words list
@@ -33,7 +33,7 @@ for intent in intents['intents']:
         xy.append((w, tag))
 
 # stem and lower each word
-ignore_words = ['?', '.', '!']
+ignore_words = ["?", ".", "!"]
 all_words = [stem(w) for w in all_words if w not in ignore_words]
 # remove duplicates and sort
 all_words = sorted(set(all_words))
@@ -43,7 +43,7 @@ tags = sorted(set(tags))
 X_train = []
 y_train = []
 
-for (pattern_sentence, tag) in xy:
+for pattern_sentence, tag in xy:
     # X: bag of words for each pattern_sentence
     bag = bag_of_words(pattern_sentence, all_words)
     X_train.append(bag)
@@ -54,7 +54,7 @@ for (pattern_sentence, tag) in xy:
 X_train = np.array(X_train)
 y_train = np.array(y_train)
 
-# Hyper-parameters 
+# Hyper-parameters
 num_epochs = 1000
 batch_size = 8
 learning_rate = 0.001
@@ -62,8 +62,8 @@ input_size = len(X_train[0])
 hidden_size = 8
 output_size = len(tags)
 
-class ChatDataset(Dataset):
 
+class ChatDataset(Dataset):
     def __init__(self):
         self.n_samples = len(X_train)
         self.x_data = X_train
@@ -77,13 +77,13 @@ class ChatDataset(Dataset):
     def __len__(self):
         return self.n_samples
 
-dataset = ChatDataset()
-train_loader = DataLoader(dataset=dataset,
-                        batch_size=batch_size,
-                        shuffle=True,
-                        num_workers=0)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+dataset = ChatDataset()
+train_loader = DataLoader(
+    dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=0
+)
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = NeuralNet(input_size, hidden_size, output_size).to(device)
 
@@ -93,26 +93,26 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 # Train the model
 for epoch in range(num_epochs):
-    for (words, labels) in train_loader:
+    for words, labels in train_loader:
         words = words.to(device)
         labels = labels.to(device)
-        
+
         # Forward pass
         outputs = model(words)
         # if y would be one-hot, we must apply
         # labels = torch.max(labels, 1)[1]
         loss = criterion(outputs, labels.long())
-        
+
         # Backward and optimize
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        
-    if (epoch+1) % 100 == 0:
-        print (f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+
+    if (epoch + 1) % 100 == 0:
+        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}")
 
 
-print(f'final loss: {loss.item():.4f}')
+print(f"final loss: {loss.item():.4f}")
 
 data = {
     "model_state": model.state_dict(),
@@ -120,10 +120,10 @@ data = {
     "hidden_size": hidden_size,
     "output_size": output_size,
     "all_words": all_words,
-    "tags": tags
+    "tags": tags,
 }
 
 FILE = "/home/CDG-NORD/florian-a/python-srv/src/data.pth"
 torch.save(data, FILE)
 
-print(f'training complete. file saved to {FILE}')
+print(f"training complete. file saved to {FILE}")

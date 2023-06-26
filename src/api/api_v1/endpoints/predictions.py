@@ -11,10 +11,14 @@ from sqlalchemy.orm import Session
 
 from src import crud
 from src import schemas
-
 from src.api import deps
 
+import nltk
+
+nltk.download("punkt")
+
 router = APIRouter()
+
 
 @router.get("/", response_model=List[schemas.Prediction])
 def read_predictions(
@@ -39,34 +43,35 @@ def create_prediction(
     Create new prediction and answer user.
     """
     # GPU if available else CPU
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Will be deprecated
-    with open('/home/CDG-NORD/florian-a/python-srv/src/pytorch_nn/intents.json', 'r') as json_data:
+    with open(
+        "/home/CDG-NORD/florian-a/python-srv/src/dl_model/pytorch_nn/intents.json", "r"
+    ) as json_data:
         intents = json.load(json_data)
 
     # Model import
-    FILE = "/home/CDG-NORD/florian-a/fastapi-srv/src/data.pth"
+    FILE = "/home/CDG-NORD/florian-a/python-srv/src/data.pth"
     data = torch.load(FILE)
 
     # Model parameters
     input_size = data["input_size"]
     hidden_size = data["hidden_size"]
     output_size = data["output_size"]
-    all_words = data['all_words']
-    tags = data['tags']
+    all_words = data["all_words"]
+    tags = data["tags"]
     model_state = data["model_state"]
 
     # Model recreation
     model = NeuralNet(input_size, hidden_size, output_size).to(device)
     model.load_state_dict(model_state)
     model.eval()
-    print(sentence)
 
     # Predict user sentence and answer
-    sentence = tokenize(sentence.text)
-    sentence = correct(sentence)
-    X = bag_of_words(sentence, all_words)
+    pred_in = tokenize(pred_in.text)
+    pred_in = correct(pred_in)
+    X = bag_of_words(pred_in, all_words)
     X = X.reshape(1, X.shape[0])
     X = torch.from_numpy(X).to(device)
 
@@ -81,15 +86,15 @@ def create_prediction(
     # END prediction
 
     if prob.item() > 0.75:
-        for intent in intents['intents']:
+        for intent in intents["intents"]:
             if tag == intent["tag"]:
                 # Recreate answer with page url or document link
-
-                result = random.choice(intent['responses'])
+                result = random.choice(intent["responses"])
     else:
         result = "Je ne comprend pas..."
     print(result)
-    return result
+    pred = {"id": 1, "text": result}
+    return pred
     # pred = crud.prediction.create(db=db, obj_in=pred_in)
     # return pred
 

@@ -5,12 +5,11 @@ from core.config import settings
 from tests.utils.prediction import create_random_prediction
 
 
-def test_create_prediction(
-    client: TestClient
-) -> None:
+def test_create_prediction(client: TestClient) -> None:
     data = {"text": "Hey"}
     response = client.post(
-        f"{settings.API_V1_STR}/predictions/", json=data,
+        f"{settings.API_V1_STR}/predictions/",
+        json=data,
     )
     assert response.status_code == 200
     content = response.json()
@@ -18,9 +17,7 @@ def test_create_prediction(
     assert "id" in content
 
 
-def test_read_prediction(
-    client: TestClient, db: Session
-) -> None:
+def test_read_prediction(client: TestClient, db: Session) -> None:
     pred = create_random_prediction(db)
     response = client.get(
         f"{settings.API_V1_STR}/predictions/{pred.id}",
