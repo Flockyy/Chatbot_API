@@ -47,7 +47,11 @@ def create_prediction(
 
     # Will be deprecated
     with open(
+<<<<<<< HEAD
         "/home/CDG-NORD/florian-a/python-srv/src/dl_model/pytorch_nn/intents.json", "r"
+=======
+        "/home/CDG-NORD/florian-a/python-srv/src/pytorch_nn/intents.json", "r"
+>>>>>>> a9bd29b27856cf77928e24d927f7302004ca934d
     ) as json_data:
         intents = json.load(json_data)
 
@@ -89,6 +93,10 @@ def create_prediction(
         for intent in intents["intents"]:
             if tag == intent["tag"]:
                 # Recreate answer with page url or document link
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9bd29b27856cf77928e24d927f7302004ca934d
                 result = random.choice(intent["responses"])
     else:
         result = "Je ne comprend pas..."
