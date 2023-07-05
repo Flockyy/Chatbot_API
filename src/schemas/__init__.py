@@ -4,3 +4,9 @@ from .prediction import (
     PredictionInDBBase,
     PredictionUpdate,
 )
+from .satisfaction import (
+    Satisfaction,
+    SatisfactionCreate,
+    SatisfactionInDBBase,
+    SatisfactionUpdate
+)

@@ -1,4 +1,5 @@
 from .crud_prediction import prediction
+from .crud_satisfaction import satisfaction
 
 # For a new basic set of CRUD operations you could just do
 

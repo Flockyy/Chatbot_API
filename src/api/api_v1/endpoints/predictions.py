@@ -19,6 +19,9 @@ nltk.download("punkt")
 
 router = APIRouter()
 
+@router.get("/sentry-debug")
+async def trigger_error():
+    division_by_zero = 1 / 0
 
 @router.get("/", response_model=List[schemas.Prediction])
 def read_predictions(

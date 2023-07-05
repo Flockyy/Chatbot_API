@@ -3,9 +3,9 @@ from typing import List
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
-from crud.base import CRUDBase
-from models.satisfaction import Satisfaction
-from schemas.satisfaction import SatisfactionCreate, SatisfactionUpdate
+from src.crud.base import CRUDBase
+from src.models.satisfaction import Satisfaction
+from src.schemas.satisfaction import SatisfactionCreate, SatisfactionUpdate
 
 
 class CRUDSatisfaction(CRUDBase[Satisfaction, SatisfactionCreate, SatisfactionUpdate]):

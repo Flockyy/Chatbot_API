@@ -4,6 +4,22 @@ from src.core.config import settings
 from src.api.api_v1.api import api_router
 from fastapi.middleware.cors import CORSMiddleware
 
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="https://555ce8b32f154b1fbc05484891fdc174@o4505475663200256.ingest.sentry.io/4505475664838656",
+    max_breadcrumbs=50,
+    debug=True,
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production,
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)
+
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )

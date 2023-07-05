@@ -2,3 +2,4 @@
 # imported by Alembic
 from src.db.base_class import Base  # noqa
 from src.models.prediction import Prediction  # noqa
+from src.models.satisfaction import Satisfaction
