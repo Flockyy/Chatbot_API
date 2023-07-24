@@ -1,5 +1,7 @@
-from .crud_prediction import prediction
-from .crud_satisfaction import satisfaction
+from .crud_answer import answer
+from .crud_chat import chat
+from .crud_question import question
+
 
 # For a new basic set of CRUD operations you could just do
 

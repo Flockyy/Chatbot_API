@@ -3,27 +3,27 @@ from typing import Any, Dict, Optional, Union, List
 from sqlalchemy.orm import Session
 
 from src.crud.base import CRUDBase
-from src.models.prediction import Prediction
-from src.schemas.prediction import PredictionCreate, PredictionUpdate
+from src.models.chat import Chat
+from src.schemas.chat import ChatCreate, ChatUpdate
 
 
-class CRUDPrediction(CRUDBase[Prediction, PredictionCreate, PredictionUpdate]):
-    def get_by_id(self, db: Session, *, id: int) -> Optional[Prediction]:
-        return db.query(Prediction).filter(Prediction.id == id).first()
+class CRUDChat(CRUDBase[Chat, ChatCreate, ChatUpdate]):
+    def get_by_id(self, db: Session, *, id: int) -> Optional[Chat]:
+        return db.query(Chat).filter(Chat.id == id).first()
 
     def get_multi_by_owner(
         self, db: Session, *, owner_id: int, skip: int = 0, limit: int = 100
-    ) -> List[Prediction]:
+    ) -> List[Chat]:
         return (
             db.query(self.model)
-            .filter(Prediction.owner_id == owner_id)
+            .filter(Chat.owner_id == owner_id)
             .offset(skip)
             .limit(limit)
             .all()
         )
 
-    def create(self, db: Session, *, obj_in: PredictionCreate) -> Prediction:
-        db_obj = Prediction(
+    def create(self, db: Session, *, obj_in: ChatCreate) -> Chat:
+        db_obj = Chat(
             text=obj_in.text,
         )
         db.add(db_obj)
@@ -35,9 +35,9 @@ class CRUDPrediction(CRUDBase[Prediction, PredictionCreate, PredictionUpdate]):
         self,
         db: Session,
         *,
-        db_obj: Prediction,
-        obj_in: Union[PredictionUpdate, Dict[str, Any]]
-    ) -> Prediction:
+        db_obj: Chat,
+        obj_in: Union[ChatUpdate, Dict[str, Any]]
+    ) -> Chat:
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
@@ -45,4 +45,4 @@ class CRUDPrediction(CRUDBase[Prediction, PredictionCreate, PredictionUpdate]):
         return super().update(db, db_obj=db_obj, obj_in=update_data)
 
 
-prediction = CRUDPrediction(Prediction)
+chat = CRUDChat(Chat)

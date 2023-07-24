@@ -1,12 +1,18 @@
-from .prediction import (
-    Prediction,
-    PredictionCreate,
-    PredictionInDBBase,
-    PredictionUpdate,
+from .chat import (
+    Chat,
+    ChatCreate,
+    ChatInDBBase,
+    ChatUpdate,
 )
-from .satisfaction import (
-    Satisfaction,
-    SatisfactionCreate,
-    SatisfactionInDBBase,
-    SatisfactionUpdate
+from .answer import (
+    Answer,
+    AnswerCreate,
+    AnswerInDBBase,
+    AnswerUpdate
+)
+from .question import (
+    Question,
+    QuestionCreate,
+    QuestionInDBBase,
+    QuestionUpdate
 )

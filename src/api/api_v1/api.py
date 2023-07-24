@@ -1,9 +1,11 @@
 from fastapi import APIRouter
 
-from src.api.api_v1.endpoints import predictions
-from src.api.api_v1.endpoints import satisfactions
+from src.api.api_v1.endpoints import chat
+from src.api.api_v1.endpoints import answer
+from src.api.api_v1.endpoints import question
 
 api_router = APIRouter()
 
-api_router.include_router(predictions.router, prefix="/prediction", tags=["prediction"])
-api_router.include_router(satisfactions.router, prefix="/satisfaction", tags=["satisfaction"])
+api_router.include_router(chat.router, prefix="/chat", tags=["Chat"])
+api_router.include_router(answer.router, prefix="/answer", tags=["Answer"])
+api_router.include_router(question.router, prefix="/question", tags=["Question"])

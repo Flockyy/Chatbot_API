@@ -23,27 +23,27 @@ router = APIRouter()
 async def trigger_error():
     division_by_zero = 1 / 0
 
-@router.get("/", response_model=List[schemas.Prediction])
-def read_predictions(
+@router.get("/", response_model=List[schemas.Chat])
+def read_chats(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
 ) -> Any:
     """
-    Retrieve predictions.
+    Retrieve Chats.
     """
-    preds = crud.prediction.get_multi(db, skip=skip, limit=limit)
-    return preds
+    chats = crud.chat.get_multi(db, skip=skip, limit=limit)
+    return chats
 
 
-@router.post("/", response_model=schemas.Prediction)
-def create_prediction(
+@router.post("/", response_model=schemas.Chat)
+def create_chat(
     *,
     db: Session = Depends(deps.get_db),
-    pred_in: schemas.PredictionCreate,
+    chat_in: schemas.ChatCreate,
 ) -> Any:
     """
-    Create new prediction and answer user.
+    Create new chat and answer user.
     """
     # GPU if available else CPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -72,9 +72,9 @@ def create_prediction(
     model.eval()
 
     # Predict user sentence and answer
-    pred_in = tokenize(pred_in.text)
-    pred_in = correct(pred_in)
-    X = bag_of_words(pred_in, all_words)
+    chat_in = tokenize(chat_in.text)
+    chat_in = correct(chat_in)
+    X = bag_of_words(chat_in, all_words)
     X = X.reshape(1, X.shape[0])
     X = torch.from_numpy(X).to(device)
 
@@ -96,56 +96,56 @@ def create_prediction(
     else:
         result = "Je ne comprend pas..."
     print(result)
-    pred = {"id": 1, "text": result}
-    return pred
+    chat = {"id": 1, "text": result}
+    return chat
     # pred = crud.prediction.create(db=db, obj_in=pred_in)
     # return pred
 
 
-@router.put("/{id}", response_model=schemas.Prediction)
-def update_prediction(
+@router.put("/{id}", response_model=schemas.Chat)
+def update_chat(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    pred_in: schemas.PredictionUpdate,
+    chat_in: schemas.ChatUpdate,
 ) -> Any:
     """
-    Update a prediction.
+    Update a chat.
     """
-    pred = crud.prediction.get(db=db, id=id)
-    if not pred:
-        raise HTTPException(status_code=404, detail="Prediction not found")
-    pred = crud.prediction.update(db=db, db_obj=pred, obj_in=pred_in)
-    return pred
+    chat = crud.chat.get(db=db, id=id)
+    if not chat:
+        raise HTTPException(status_code=404, detail="Chat not found")
+    chat = crud.chat.update(db=db, db_obj=chat, obj_in=chat_in)
+    return chat
 
 
-@router.get("/{id}", response_model=schemas.Prediction)
-def read_prediction(
-    *,
-    db: Session = Depends(deps.get_db),
-    id: int,
-) -> Any:
-    """
-    Get prediction by ID.
-    """
-    pred = crud.prediction.get(db=db, id=id)
-    if not pred:
-        raise HTTPException(status_code=404, detail="Prediction not found")
-
-    return pred
-
-
-@router.delete("/{id}", response_model=schemas.Prediction)
-def delete_prediction(
+@router.get("/{id}", response_model=schemas.Chat)
+def read_chat(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
 ) -> Any:
     """
-    Delete an prediction.
+    Get chat by ID.
     """
-    pred = crud.prediction.get(db=db, id=id)
-    if not pred:
-        raise HTTPException(status_code=404, detail="Prediction not found")
-    pred = crud.prediction.remove(db=db, id=id)
-    return pred
+    chat = crud.chat.get(db=db, id=id)
+    if not chat:
+        raise HTTPException(status_code=404, detail="Chat not found")
+
+    return chat
+
+
+@router.delete("/{id}", response_model=schemas.Chat)
+def delete_chat(
+    *,
+    db: Session = Depends(deps.get_db),
+    id: int,
+) -> Any:
+    """
+    Delete an chat.
+    """
+    chat = crud.chat.get(db=db, id=id)
+    if not chat:
+        raise HTTPException(status_code=404, detail="Chat not found")
+    chat = crud.chat.remove(db=db, id=id)
+    return chat

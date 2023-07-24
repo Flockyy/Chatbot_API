@@ -4,21 +4,20 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class PredictionBase(BaseModel):
+class AnswerBase(BaseModel):
     text: Optional[str] = None
 
 
 # Properties to receive via API on creation
-class PredictionCreate(PredictionBase):
+class AnswerCreate(AnswerBase):
     text: str
 
-
 # Properties to receive via API on update
-class PredictionUpdate(PredictionBase):
+class AnswerUpdate(AnswerBase):
     pass
 
 
-class PredictionInDBBase(PredictionBase):
+class AnswerInDBBase(AnswerBase):
     id: Optional[int] = None
 
     class Config:
@@ -28,5 +27,5 @@ class PredictionInDBBase(PredictionBase):
 # Additional properties to return via API
 
 
-class Prediction(PredictionInDBBase):
+class Answer(AnswerInDBBase):
     pass
