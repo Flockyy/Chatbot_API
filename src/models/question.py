@@ -13,4 +13,3 @@ class Question(Base):
     id = Column(Integer, primary_key=True, index=True)
     text = Column(String)
     related_chat_id = Column(Integer, ForeignKey("chat.id"))
-    related_chat = relationship("Chat", back_populates="questions")

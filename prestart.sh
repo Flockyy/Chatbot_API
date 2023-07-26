@@ -1,10 +1,12 @@
 #! /usr/bin/env bash
 
 # Let the DB start
-python /fastapi-project/src/backend_pre_start.py
+python3 /home/CDG-NORD/florian-a/fastapi-base/backend_pre_start.py
 
 # Run migrations
-alembic upgrade head
+# PYTHONPATH=. alembic upgrade head
+
+# python3 /home/CDG-NORD/florian-a/fastapi-base/src/db/init_db.py
 
 # Create initial data in DB
-python /fastapi-project/src/initial_data.py
+python3 /home/CDG-NORD/florian-a/fastapi-base/initial_data.py

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from core.config import settings
-from base_class import Base  # noqa: F401
+from src.core.config import settings
+from src.db.base_class import Base  # noqa: F401
 from sqlalchemy import create_engine
 
 # make sure all SQL Alchemy models are imported (app.db.base) before initializing DB

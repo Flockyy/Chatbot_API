@@ -36,15 +36,18 @@ def read_chats(
     return chats
 
 
-@router.post("/", response_model=schemas.Chat)
+@router.post("/", response_model=schemas.Answer)
 def create_chat(
     *,
     db: Session = Depends(deps.get_db),
-    chat_in: schemas.ChatCreate,
+    question_in: schemas.QuestionCreate,
+    answer_in: schemas.QuestionCreate,
+    chat_in: schemas.ChatCreate
 ) -> Any:
     """
     Create new chat and answer user.
     """
+
     # GPU if available else CPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -72,9 +75,9 @@ def create_chat(
     model.eval()
 
     # Predict user sentence and answer
-    chat_in = tokenize(chat_in.text)
-    chat_in = correct(chat_in)
-    X = bag_of_words(chat_in, all_words)
+    question_in = tokenize(question_in.text)
+    question_in = correct(question_in)
+    X = bag_of_words(question_in, all_words)
     X = X.reshape(1, X.shape[0])
     X = torch.from_numpy(X).to(device)
 
@@ -96,8 +99,14 @@ def create_chat(
     else:
         result = "Je ne comprend pas..."
     print(result)
-    chat = {"id": 1, "text": result}
-    return chat
+    # answer = {"id": 1, "text": result}
+
+    chat_in = crud.chat.create(db, obj_in=chat_in)
+    question = crud.question.create_with_owner(db, obj_in=question_in ,related_chat_id=chat_in.id)
+    answer_in.text = result
+    answer = crud.question.create_with_owner(db, obj_in=answer_in ,related_chat_id=chat_in.id)
+
+    return answer
     # pred = crud.prediction.create(db=db, obj_in=pred_in)
     # return pred
 

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Chat(Base):
     id = Column(Integer, primary_key=True, index=True)
-    score = Column(Integer)
-    review = Column(String)
-    questions = relationship("Question", back_populates="related_question")
-    answers = relationship("Answer", back_populates="related_answer")
+    score = Column(Integer, nullable=True)
+    review = Column(String, nullable=True)
+    questions = relationship("Question", backref="related_question")
+    answers = relationship("Answer", backref="related_answer")

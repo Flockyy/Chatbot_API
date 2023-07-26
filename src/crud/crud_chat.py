@@ -24,7 +24,8 @@ class CRUDChat(CRUDBase[Chat, ChatCreate, ChatUpdate]):
 
     def create(self, db: Session, *, obj_in: ChatCreate) -> Chat:
         db_obj = Chat(
-            text=obj_in.text,
+            score=obj_in.score,
+            review=obj_in.review,
         )
         db.add(db_obj)
         db.commit()

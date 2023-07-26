@@ -10,10 +10,10 @@ from src.schemas.question import QuestionCreate, QuestionUpdate
 
 class CRUDQuestion(CRUDBase[Question, QuestionCreate, QuestionUpdate]):
     def create_with_owner(
-        self, db: Session, *, obj_in: QuestionCreate, related_pred_id: int
+        self, db: Session, *, obj_in: QuestionCreate, related_chat_id: int
     ) -> Question:
         obj_in_data = jsonable_encoder(obj_in)
-        db_obj = self.model(**obj_in_data, related_pred_id=related_pred_id)
+        db_obj = self.model(**obj_in_data, related_chat_id=related_chat_id)
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
