@@ -222,25 +222,25 @@ Once running, access interactive API docs:
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| \POST\ | \/api/v1/chats/\ | Create new chat session |
-| \GET\ | \/api/v1/chats/{id}\ | Get chat by ID |
-| \GET\ | \/api/v1/chats/\ | List all chats |
-| \DELETE\ | \/api/v1/chats/{id}\ | Delete chat |
+| `POST` | `/api/v1/chats/` | Create new chat session |
+| `GET` | `/api/v1/chats/{id}` | Get chat by ID |
+| `GET` | `/api/v1/chats/` | List all chats |
+| `DELETE` | `/api/v1/chats/{id}` | Delete chat |
 
 #### Question Handling
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| \POST\ | \/api/v1/questions/\ | Submit new question |
-| \GET\ | \/api/v1/questions/{id}\ | Get question details |
-| \GET\ | \/api/v1/questions/chat/{chat_id}\ | Get all questions in chat |
+| `POST` | `/api/v1/questions/` | Submit new question |
+| `GET` | `/api/v1/questions/{id}` | Get question details |
+| `GET` | `/api/v1/questions/chat/{chat_id}` | Get all questions in chat |
 
 #### Answer Generation
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| \GET\ | \/api/v1/answers/{question_id}\ | Generate answer for question |
-| \GET\ | \/api/v1/answers/\ | List all answers |
+| `GET` | `/api/v1/answers/{question_id}` | Generate answer for question |
+| `GET` | `/api/v1/answers/` | List all answers |
 
 ### Example Requests
 
