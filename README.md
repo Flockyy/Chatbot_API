@@ -152,7 +152,7 @@ Chatbot_API/
 ### Setup
 
 1. **Clone the repository**
-```ash
+```bash
 git clone https://github.com/Flockyy/Chatbot_API.git
 cd Chatbot_API
 ```
