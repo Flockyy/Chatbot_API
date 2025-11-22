@@ -404,6 +404,4 @@ This project is open-source and available under the MIT License.
 
 **[ Back to Top](#-chatbot-api)**
 
-Made with  by [Florian Abgrall](https://github.com/Flockyy)
-
 </div>
