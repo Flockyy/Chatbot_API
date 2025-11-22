@@ -35,40 +35,28 @@ A full-stack **FastAPI-based chatbot system** with custom NLP models, database p
 ##  Architecture
 
 ```
-
-           FastAPI Application               
-                                             
-     
-        API v1 Endpoints                   
-    /chats  /questions  /answers           
-     
-                                            
-     
-           CRUD Operations                 
-    (Business Logic Layer)                 
-     
-                                            
-     
-        SQLAlchemy ORM Models              
-    Chat | Question | Answer               
-     
-                                            
-     
-           SQLite Database                 
-    (sql.db)                               
-     
-
-                     
-                     
-       
-           AI Module (ai/)        
-          NLP Utils (NLTK)       
-          PyTorch Model          
-          Seq2seq Training       
-       
-```
-
----
+FastAPI Application
+├── API v1 Endpoints
+│   ├── /chats
+│   ├── /questions
+│   └── /answers
+│
+├── CRUD Operations
+│   └── Business Logic Layer
+│
+├── SQLAlchemy ORM Models
+│   ├── Chat
+│   ├── Question
+│   └── Answer
+│
+├── SQLite Database
+│   └── sql.db
+│
+└── AI Module (ai/)
+    ├── NLP Utils (NLTK)
+    ├── PyTorch Model
+    └── Seq2seq Training
+```---
 
 ##  Technologies
 
@@ -88,52 +76,52 @@ A full-stack **FastAPI-based chatbot system** with custom NLP models, database p
 
 ```
 Chatbot_API/
- src/
-    main.py                  # FastAPI application entry point
-    api/
-       api_v1/              # API version 1 endpoints
-          endpoints/
-             chats.py     # Chat CRUD endpoints
-             questions.py # Question management
-             answers.py   # Answer generation
-          api.py           # API router aggregation
-       deps.py              # Dependency injection
-    core/
-       config.py            # Application configuration
-    crud/
-       base.py              # Generic CRUD operations
-       crud_chat.py         # Chat-specific operations
-       crud_question.py     # Question operations
-       crud_answer.py       # Answer operations
-    db/
-       base.py              # Database models registry
-       base_class.py        # Declarative base
-       session.py           # Database session factory
-       init_db.py           # DB initialization
-    models/
-       chat.py              # Chat SQLAlchemy model
-       question.py          # Question model
-       answer.py            # Answer model
-    schemas/
-       chat.py              # Chat Pydantic schemas
-       question.py          # Question schemas
-       answer.py            # Answer schemas
-    tests/                   # Test suite
-        api/                 # API endpoint tests
-        crud/                # CRUD operation tests
-        utils/               # Test utilities
- ai/
-    model.py                 # PyTorch neural network architecture
-    train.py                 # Model training script
-    seq2seq.py               # Sequence-to-sequence implementation
-    nltk_utils.py            # Tokenization, stemming, bag-of-words
-    create_model_db.py       # Generate training data
- notebooks/
-    camembert-pretrained-qna.ipynb  # CamemBERT fine-tuning
-    data_processing.ipynb           # Data exploration
- alembic/                     # Database migrations
- scripts/
-    test.sh                  # Run tests
+├── src/
+│   ├── main.py
+│   ├── api/
+│   │   ├── api_v1/
+│   │   │   ├── endpoints/
+│   │   │   │   ├── chats.py
+│   │   │   │   ├── questions.py
+│   │   │   │   └── answers.py
+│   │   │   └── api.py
+│   │   └── deps.py
+│   ├── core/
+│   │   └── config.py
+│   ├── crud/
+│   │   ├── base.py
+│   │   ├── crud_chat.py
+│   │   ├── crud_question.py
+│   │   └── crud_answer.py
+│   ├── db/
+│   │   ├── base.py
+│   │   ├── base_class.py
+│   │   ├── session.py
+│   │   └── init_db.py
+│   ├── models/
+│   │   ├── chat.py
+│   │   ├── question.py
+│   │   └── answer.py
+│   ├── schemas/
+│   │   ├── chat.py
+│   │   ├── question.py
+│   │   └── answer.py
+│   └── tests/
+│       ├── api/
+│       ├── crud/
+│       └── utils/
+├── ai/
+│   ├── model.py
+│   ├── train.py
+│   ├── seq2seq.py
+│   ├── nltk_utils.py
+│   └── create_model_db.py
+├── notebooks/
+│   ├── camembert-pretrained-qna.ipynb
+│   └── data_processing.ipynb
+├── alembic/
+└── scripts/
+    └── test.sh
     test-cov-html.sh         # Coverage report
     lint.sh                  # Code quality checks
  alembic.ini                  # Alembic configuration
