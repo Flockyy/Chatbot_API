@@ -21,14 +21,14 @@ A full-stack **FastAPI-based chatbot system** with custom NLP models, database p
 
 ###  Key Features
 
-- ** Custom NLP Model**: Seq2seq architecture with attention mechanism for response generation
-- ** FastAPI Backend**: High-performance async API with automatic OpenAPI documentation
-- ** Database Persistence**: SQLAlchemy ORM with Alembic migrations for conversation history
-- ** Intent Classification**: NLTK-powered tokenization and stemming for query understanding
-- ** CamemBERT Integration**: Pre-trained French language model support (notebooks)
-- ** Test Coverage**: Comprehensive test suite with pytest
-- ** Production-Ready**: Includes health checks, pre-start scripts, and linting
-- ** API Versioning**: Organized v1 API structure for maintainability
+- **Custom NLP Model**: Seq2seq architecture with attention mechanism for response generation
+- **FastAPI Backend**: High-performance async API with automatic OpenAPI documentation
+- **Database Persistence**: SQLAlchemy ORM with Alembic migrations for conversation history
+- **Intent Classification**: NLTK-powered tokenization and stemming for query understanding
+- **CamemBERT Integration**: Pre-trained French language model support (notebooks)
+- **Test Coverage**: Comprehensive test suite with pytest
+- **Production-Ready**: Includes health checks, pre-start scripts, and linting
+- **API Versioning**: Organized v1 API structure for maintainability
 
 ---
 
