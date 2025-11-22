@@ -373,14 +373,14 @@ CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 ---
 
-##  Contributing
+## Contributing
 
 1. Fork the repository
-2. Create feature branch (\git checkout -b feature/new-feature\)
-3. Run tests: \pytest src/tests/\
-4. Run linter: \lake8 src/\
-5. Commit changes (\git commit -m 'Add feature'\)
-6. Push to branch (\git push origin feature/new-feature\)
+2. Create feature branch (`git checkout -b feature/new-feature`)
+3. Run tests: `pytest src/tests/`
+4. Run linter: `flake8 src/`
+5. Commit changes (`git commit -m 'Add feature'`)
+6. Push to branch (`git push origin feature/new-feature`)
 7. Open Pull Request
 
 ---
