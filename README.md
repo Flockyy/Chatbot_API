@@ -34,7 +34,7 @@ A full-stack **FastAPI-based chatbot system** with custom NLP models, database p
 
 ##  Architecture
 
-\\\
+```
 
            FastAPI Application               
                                              
@@ -66,7 +66,7 @@ A full-stack **FastAPI-based chatbot system** with custom NLP models, database p
           PyTorch Model          
           Seq2seq Training       
        
-\\\
+```
 
 ---
 
@@ -86,7 +86,7 @@ A full-stack **FastAPI-based chatbot system** with custom NLP models, database p
 
 ##  Project Structure
 
-\\\
+```
 Chatbot_API/
  src/
     main.py                  # FastAPI application entry point
@@ -140,7 +140,7 @@ Chatbot_API/
  backend_pre_start.py         # Pre-start health checks
  initial_data.py              # Seed database
  sql.db                       # SQLite database file
-\\\
+```
 
 ---
 
@@ -155,38 +155,38 @@ Chatbot_API/
 ### Setup
 
 1. **Clone the repository**
-\\\ash
+```ash
 git clone https://github.com/Flockyy/Chatbot_API.git
 cd Chatbot_API
-\\\
+```
 
 2. **Create virtual environment**
-\\\ash
+```ash
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
-\\\
+```
 
 3. **Install dependencies**
-\\\ash
+```ash
 pip install -r requirements.txt
-\\\
+```
 
 4. **Download NLTK data**
-\\\ash
+```ash
 python -c "import nltk; nltk.download('punkt')"
-\\\
+```
 
 5. **Initialize database**
-\\\ash
+```ash
 alembic upgrade head
 python initial_data.py
-\\\
+```
 
 6. **Train NLP model (optional)**
-\\\ash
+```ash
 cd ai
 python train.py
-\\\
+```
 
 ---
 
@@ -194,13 +194,13 @@ python train.py
 
 ### Starting the API Server
 
-\\\ash
+```ash
 # Development mode with auto-reload
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 
 # Production mode
 uvicorn src.main:app --host 0.0.0.0 --port 8000 --workers 4
-\\\
+```
 
 Server will be available at **http://localhost:8000**
 
@@ -247,7 +247,7 @@ Once running, access interactive API docs:
 <details>
 <summary><b>Create Chat & Ask Question</b> (Click to expand)</summary>
 
-\\\ash
+```ash
 # 1. Create chat session
 curl -X POST http://localhost:8000/api/v1/chats/ \\
   -H "Content-Type: application/json" \\
@@ -262,14 +262,14 @@ curl -X POST http://localhost:8000/api/v1/questions/ \\
 
 # 3. Get answer
 curl -X GET http://localhost:8000/api/v1/answers/1
-\\\
+```
 
 </details>
 
 <details>
 <summary><b>Python Client Example</b> (Click to expand)</summary>
 
-\\\python
+```python
 import requests
 
 BASE_URL = "http://localhost:8000/api/v1"
@@ -288,7 +288,7 @@ question_id = question.json()["id"]
 # Get answer
 answer = requests.get(f"{BASE_URL}/answers/{question_id}")
 print(answer.json()["text"])
-\\\
+```
 
 </details>
 
@@ -306,13 +306,13 @@ print(answer.json()["text"])
 
 ### Training
 
-\\\ash
+```ash
 cd ai
 python train.py --epochs 1000 --batch-size 8 --learning-rate 0.001
-\\\
+```
 
 Training data format in \create_model_db.py\:
-\\\python
+```python
 intents = {
     "greetings": {
         "patterns": ["hello", "hi", "hey"],
@@ -320,7 +320,7 @@ intents = {
     },
     # ... more intents
 }
-\\\
+```
 
 ---
 
@@ -328,7 +328,7 @@ intents = {
 
 ### Running Tests
 
-\\\ash
+```ash
 # All tests
 pytest src/tests/
 
@@ -338,11 +338,11 @@ pytest src/tests/
 
 # Specific test file
 pytest src/tests/api/test_chats.py -v
-\\\
+```
 
 ### Code Quality
 
-\\\ash
+```ash
 # Linting
 flake8 src/
 ./scripts/lint.sh
@@ -352,11 +352,11 @@ mypy src/
 
 # Auto-formatting (if Black installed)
 black src/
-\\\
+```
 
 ### Database Migrations
 
-\\\ash
+```ash
 # Create migration
 alembic revision --autogenerate -m "Add new column"
 
@@ -365,13 +365,13 @@ alembic upgrade head
 
 # Rollback
 alembic downgrade -1
-\\\
+```
 
 ---
 
 ##  Docker Deployment (Future)
 
-\\\dockerfile
+```dockerfile
 # Example Dockerfile structure
 FROM python:3.9-slim
 WORKDIR /app
@@ -379,7 +379,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
-\\\
+```
 
 ---
 
