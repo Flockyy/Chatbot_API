@@ -131,13 +131,6 @@ Chatbot_API/
 ├── initial_data.py
 └── sql.db
 ```
-    test-cov-html.sh         # Coverage report
-    lint.sh                  # Code quality checks
- alembic.ini                  # Alembic configuration
- backend_pre_start.py         # Pre-start health checks
- initial_data.py              # Seed database
- sql.db                       # SQLite database file
-```
 
 ---
 
