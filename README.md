@@ -56,7 +56,9 @@ FastAPI Application
     ├── NLP Utils (NLTK)
     ├── PyTorch Model
     └── Seq2seq Training
-```---
+```
+
+---
 
 ##  Technologies
 
@@ -120,8 +122,15 @@ Chatbot_API/
 │   ├── camembert-pretrained-qna.ipynb
 │   └── data_processing.ipynb
 ├── alembic/
-└── scripts/
-    └── test.sh
+├── scripts/
+│   ├── test.sh
+│   ├── test-cov-html.sh
+│   └── lint.sh
+├── alembic.ini
+├── backend_pre_start.py
+├── initial_data.py
+└── sql.db
+```
     test-cov-html.sh         # Coverage report
     lint.sh                  # Code quality checks
  alembic.ini                  # Alembic configuration
